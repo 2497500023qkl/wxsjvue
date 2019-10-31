@@ -1,51 +1,46 @@
-<template>
-    <div class="newsblock1">
-        <home v-bind:data='add'/>
-                    <div class="blankline1"></div>
-                        <div class="chatblock1">
-        <img src="../assets/voice.png" alt=""  class="voice">
-        <div><input type="text" class="inputbox"></div>
-        <img src="../assets/emoticon.png" alt="" class="emoticon">
-        <img src="../assets/more2.png" alt="" class="more">
-    </div>
-            <div class="topfoor1">
-                    <img src="../assets/arrow2.png" alt="" class="arrow2">
-                    <div class="text">未来的CTO（24）</div>
-                    <img src="../assets/more.png" alt="" class="more">
+       <template>
+       <div class="c">
+       <div class="a1" v-for="i in  data">
+               <div class="date" v-if="i.class">{{i.date}}</div>
+        <div class="news" v-if="i.class1=='1'">
+            <div class="headportrait"><img v-bind:src="i.img" alt=""></div>
+            <div class="chatcontent1">
+                <div class="location"></div>
+                <div class="username">{{i.name}}</div>
+                <div class="information">
+                    <span>{{i.text}}</span>
+                </div>
             </div>
-    </div>
-
-</template>
-<script>
-                import home from '@/components/home1.vue'
+        </div>
+                <div class="news1" v-else>
+            <div class="headportrait"><img v-bind:src="i.img" alt=""></div>
+            <div class="chatcontent1">
+                <div class="location"></div>
+                <div class="username">{{i.name}}</div>
+                <div class="information">
+                    <span>{{i.text}}</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </template>
+    <script>
 export default {
-            components: {
-home
-        },
-mounted() {
-  document.querySelector('body').setAttribute('style', 'background-color:#ececec')
-},
+    components: {
+    },
+  props: ['data']
+  ,
+   mounted(){
+ },
+              methods:{
+
+     },
 data() {
     return {
-        add:[
-            {'date':'前天晚上8:11','class':true,'img':'./img/head4.jpeg','name':'张三','text':'我是谁','class1':'1'},
-            {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'前天晚上10:11','class':true,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-                         {'date':'昨天晚上8:11','class':true,'img':'./img/head4.jpeg','name':'张三','text':'我是谁','class1':'1'},
-            {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'昨天晚上10:11','class':true,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-                         {'date':'晚上8:11','class':true,'img':'./img/head4.jpeg','name':'张三','text':'我是谁','class1':'1'},
-            {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上10:11','class':true,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-        ]
+
     }
 },
-beforeDestroy() {
-  document.querySelector('body').removeAttribute('style')
-}
 }
 </script>
 <style lang="scss" >
@@ -70,7 +65,7 @@ $bottom-color:#f7f7f7;
         flex-grow:1;
         .inputbox{
             width: 100%;
-            margin-top: 4px;
+            margin-top: 8px;
             height: 30px;
             font-size: 20px;
             border: 0;
@@ -103,12 +98,17 @@ $bottom-color:#f7f7f7;
         margin-top:30px ;
     }
 }
-.newsblock1{
+.c{
+    width:100%;
     background-color: #ececec; 
-    margin-top: 60px;
     display: flex;
     flex-direction:column;
-    .date{
+.a1{
+    display: flex;
+        flex-direction:column;
+    width:100%;
+    margin:0;
+        .date{
         width: 100%;
         text-align: center;
         padding-top: 5px;
@@ -156,7 +156,7 @@ $bottom-color:#f7f7f7;
             }
             .location{
                 position: absolute;
-                top: 40px;
+                top: 50px;
                 left: 0px;
                 width:0;
                 height:0;
@@ -217,9 +217,11 @@ $bottom-color:#f7f7f7;
         }
     }
 }
-.blankline1{
+}
+.blankline{
     height: 50px;
     width: 100%;
     float: left;
 }
+</style>
 </style>
