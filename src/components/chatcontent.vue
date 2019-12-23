@@ -1,14 +1,17 @@
 <template>
    <div  class="chatcontent">
-   <div class="di"    v-for="i in qq" @click="t()">
-           <div class="img"><img v-bind:src="i.img" alt="">
+   <div class="di"    v-for="i in qq" @click="t(i)">
+           <div class="img">
+               <img v-bind:src="i.avatar" alt="" v-if="i.avatar!='#'">
+               <img src="../assets/head5.jpg"  alt="" v-else>
            </div>
            <div class="content">
                <div class="timename">
-                   <div class="name"><b>{{i.name}}</b></div>
-                   <div class="time">{{i.date}}</div>
+                   <div class="name"><b>{{i.nickname}}</b></div>
+                    <div class="time">新</div>
+                   <div class="time">{{i.created_at}}</div>
                </div>
-               <div class="information"><span>{{i.text}}</span></div>
+               <div class="information"><span>{{i.content}}</span></div>
            </div>
            </div>
 
@@ -30,8 +33,8 @@ export default {
     
  },
               methods:{
-                  t(){
-                             this.$router.push('/home')
+                  t(i){
+                             this.$router.push({path:'/home',query:{MY:i}})
                   }
      },
 data() {
@@ -52,12 +55,14 @@ data() {
           display: flex;
           width: 100%;
            .img{
-            img{
                 width: 50px;
                 height:50px;
                 padding-top:5px;
                 margin-left: 7.5px;
-            }
+                img{
+                width: 50px;
+                height:50px;
+                }
         }
         .content{
             width: 100%;

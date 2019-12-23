@@ -41,6 +41,7 @@
 <script>
         import World from '@/components/World.vue'
                 import top from '@/components/top.vue'
+                 import axios from 'axios'
                 import maillist1 from '@/components/maillist.vue'
     export default {
         name:"maillist",
@@ -50,20 +51,34 @@
             maillist1
         },
         props: {
+
+        },
+          mounted() {
+            this.friend(localStorage.getItem("token"));
         },
         methods: {
+friend(t){
+                        axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/select/friendMapper',
+                            params: {
+                                token:t,
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                            this.aa.push(data.object);
+                    },
+                        })
+},
         },
 
         data() {
             return {
                 text:"通讯录",
                 aa:[
-                    {'class1':'群聊','class2':false,'class3':'0','img':'./img/head3.jpeg'},
-                     {'class1':'标签','class2':false,'class3':'0','img':'./img/head3.jpeg'},
-                    {'class1':'公众号','class2':false,'class3':'0','img':'./img/head3.jpeg'},
-                     {'class1':'安','class2':true,'class3':'A','img':'./img/head3.jpeg'},
-                      {'class1':'杨','class2':true,'class3':'Y','img':'./img/head3.jpeg'},
-                        {'class1':'杨1','class2':false,'class3':'Y','img':'./img/head3.jpeg'},
+                    {'nickname':'群聊','avatar':'./img/head3.jpeg'},
+                     {'nickname':'标签','avatar':'./img/head3.jpeg'},
+                    {'nickname':'公众号','avatar':'./img/head3.jpeg'},
                     ]
                 }
             },

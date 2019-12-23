@@ -29,15 +29,15 @@
             return {
                 text:"发现",
                 aa:[
-                    {'class1':'朋友圈','class2':false,'class3':'0','img':'./img/head3.jpeg'},
-                     {'class1':'扫一扫','class2':true,'class3':'','img':'./img/head3.jpeg'},
-                    {'class1':'摇一摇','class2':false,'class3':'0','img':'./img/head3.jpeg'},
-                     {'class1':'看一看','class2':true,'class3':'','img':'./img/head3.jpeg'},
-                      {'class1':'搜一艘','class2':true,'class3':'','img':'./img/head3.jpeg'},
-                        {'class1':'附近的人','class2':true,'class3':'','img':'./img/head3.jpeg'},
-                        {'class1':'购物','class2':true,'class3':'','img':'./img/head3.jpeg'},
-                        {'class1':'游戏','class2':false,'class3':'','img':'./img/head3.jpeg'},
-                        {'class1':'小程序','class2':true,'class3':'','img':'./img/head3.jpeg'},
+                    {'nickname':'朋友圈','class2':false,'class3':'0','avatar':'./img/head3.jpeg'},
+                     {'nickname':'扫一扫','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
+                    {'nickname':'摇一摇','class2':false,'class3':'0','avatar':'./img/head3.jpeg'},
+                     {'nickname':'看一看','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
+                      {'nickname':'搜一艘','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
+                        {'nickname':'附近的人','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
+                        {'nickname':'购物','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
+                        {'nickname':'游戏','class2':false,'class3':'','avatar':'./img/head3.jpeg'},
+                        {'nickname':'小程序','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
                     ]
                 }
             },

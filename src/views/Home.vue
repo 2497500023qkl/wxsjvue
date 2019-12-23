@@ -1,15 +1,15 @@
 <template>
-    <div class="newsblock1">
-        <home v-bind:data='add'/>
+    <div class="newsblock1" id="la">
+        <home v-bind:data='add' />
                     <div class="blankline1"></div>
                         <div class="chatblock1">
         <img src="../assets/voice.png" alt=""  class="voice">
-        <div><input type="text" class="inputbox"></div>
+        <div><input type="text" class="inputbox" v-model:value="ac"></div>
         <img src="../assets/emoticon.png" alt="" class="emoticon">
-        <img src="../assets/more2.png" alt="" class="more">
+        <img src="../assets/more2.png" alt="" class="more" @click="insert()">
     </div>
             <div class="topfoor1">
-                    <img src="../assets/arrow2.png" alt="" class="arrow2">
+                    <img src="../assets/arrow2.png" alt="" class="arrow2" @click="cc()">
                     <div class="text">未来的CTO（24）</div>
                     <img src="../assets/more.png" alt="" class="more">
             </div>
@@ -18,29 +18,110 @@
 </template>
 <script>
                 import home from '@/components/home1.vue'
+                 import axios from 'axios'
+                import Vue from 'vue';
+import { List } from 'vant';
 export default {
             components: {
 home
         },
 mounted() {
   document.querySelector('body').setAttribute('style', 'background-color:#ececec')
+  this.j=this.$route.query.MY;
+  this.chat();
+  this.upda();
+  this.d=setInterval(this.cchat,5000);
+  console.log(this.j)
 },
+updated(){
+let ele =document.getElementById('la');
+ele.scrollTop=ele.scrollHeight;
+},
+methods: {
+    cc(){
+        clearInterval(this.d)
+        this.$router.push('/')
+    },
+chat(){
+                        axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/select/chat',
+                            params: {
+                                token:localStorage.getItem("token"),
+                                username:this.j.username,
+                                f:this.f++,
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                        console.log(data)
+                        if(this.add!=null){
+                             for(var i=0; i<this.add.object.length;i++){
+                            this.add.object=data.object.push(this.add.object[i]);
+                        }    
+                        }else{
+                              this.add=data;
+                        }
+                       
+                    },
+                        })
+},
+upda(){
+                        axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/updata/chat',
+                            params: {
+                                token:localStorage.getItem("token"),
+                                username:this.j.username,
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                    },
+                        })
+},
+cchat(){
+axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/select/nfchat',
+                            params: {
+                                token:localStorage.getItem("token"),
+                                friend_id:this.j.id,
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                        for(var i=0; i<data.object.length;i++){
+                                this.add.object.push(data.object[i]);
+                        }
+                        this.upda();
+                    },
+                        })
+},
+insert(){
+    if(this.ac==""){
+                            return;
+     }
+    axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/insert/chat',
+                            params: {
+                                token:localStorage.getItem("token"),
+                                username:this.j.username,
+                                content:this.ac
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                        this.ac="";
+                        this.chat();
+                    },
+                        })
+},
+        },
 data() {
     return {
-        add:[
-            {'date':'前天晚上8:11','class':true,'img':'./img/head4.jpeg','name':'张三','text':'我是谁','class1':'1'},
-            {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'前天晚上10:11','class':true,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-                         {'date':'昨天晚上8:11','class':true,'img':'./img/head4.jpeg','name':'张三','text':'我是谁','class1':'1'},
-            {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'昨天晚上10:11','class':true,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-                         {'date':'晚上8:11','class':true,'img':'./img/head4.jpeg','name':'张三','text':'我是谁','class1':'1'},
-            {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上8:11','class':false,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-             {'date':'晚上10:11','class':true,'img':'./img/head13.jpeg','name':'李四','text':'我是谁','class1':''},
-        ]
+        j:null,
+        add:null,
+        ac:"",
+        d:null,
+        f:0,
     }
 },
 beforeDestroy() {
@@ -103,10 +184,15 @@ $bottom-color:#f7f7f7;
         margin-top:30px ;
     }
 }
+.newsblock1::-webkit-scrollbar {
+        display: none;
+    }
 .newsblock1{
     background-color: #ececec; 
     margin-top: 60px;
     display: flex;
+    overflow: auto;
+    height: calc(100vh - 95px);
     flex-direction:column;
     .date{
         width: 100%;

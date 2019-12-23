@@ -13,6 +13,7 @@
     import chatcontent from '@/components/chatcontent.vue'
         import World from '@/components/World.vue'
                 import top from '@/components/top.vue'
+                 import axios from 'axios'
     export default {
         name:"wechat",
         components: {
@@ -22,16 +23,28 @@
         },
         props: {
         },
-        methods: {
+  mounted() {
+                this.chat(localStorage.getItem("token"));
         },
-
+methods: {
+chat(t){
+                        axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/select/nchat',
+                            params: {
+                                token:t,
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                            console.log(data)
+                            this.dataa=data.object;
+                    },
+                        })
+},
+        },
         data() {
             return {
-                    dataa:[
-                        {"name":'大神','text':'网吧去吗',"date":'4:12','img':'./img/head5.jpg'},
-                        {"name":'Y-mz','text':'土星？',"date":'5:12','img':'./img/head3.jpeg'},
-                        {"name":'太阳神','text':'我玩压缩',"date":'9:12','img':'./img/head2.jpeg'},
-                        ],
+                    dataa:[],
                         text:"微信"
                 }
             },

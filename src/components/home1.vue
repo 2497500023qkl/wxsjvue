@@ -1,14 +1,13 @@
        <template>
-       <div class="c">
-       <div class="a1" v-for="i in  data">
-               <div class="date" v-if="i.class">{{i.date}}</div>
-        <div class="news" v-if="i.class1=='1'">
+       <div class="c" v-if="data!=null">
+       <div class="a1" v-for="i in  data.object">
+               <div class="date">{{i.created_at}}</div>
+        <div class="news" v-if="i.user_id!=data.tips">
             <div class="headportrait"><img v-bind:src="i.img" alt=""></div>
             <div class="chatcontent1">
                 <div class="location"></div>
-                <div class="username">{{i.name}}</div>
                 <div class="information">
-                    <span>{{i.text}}</span>
+                    <span>{{i.content}}</span>
                 </div>
             </div>
         </div>
@@ -16,9 +15,8 @@
             <div class="headportrait"><img v-bind:src="i.img" alt=""></div>
             <div class="chatcontent1">
                 <div class="location"></div>
-                <div class="username">{{i.name}}</div>
                 <div class="information">
-                    <span>{{i.text}}</span>
+                    <span>{{i.content}}</span>
                 </div>
             </div>
         </div>
@@ -32,13 +30,12 @@ export default {
   props: ['data']
   ,
    mounted(){
+       console.log(this.data);
  },
-              methods:{
-
+    methods:{
      },
 data() {
     return {
-
     }
 },
 }
@@ -132,14 +129,11 @@ $bottom-color:#f7f7f7;
             padding-left: 20px;
             position: relative;
                                 background-color: #ececec; 
-            .username{
-                margin-bottom: 5px;
-                font-size: 20px;
-            }
             .information{
                 min-width: 10px;
                 display: inline-block;
                 word-break:break-all;
+                margin: 10px 0 0 0;
                 padding-top: 5px;
                 border-radius:5px;
                 border: 1px solid #fff;
@@ -156,7 +150,7 @@ $bottom-color:#f7f7f7;
             }
             .location{
                 position: absolute;
-                top: 50px;
+                top: 20px;
                 left: 0px;
                 width:0;
                 height:0;
@@ -182,15 +176,11 @@ $bottom-color:#f7f7f7;
             position: relative;
                         float: right;
                                 background-color: #ececec; 
-            .username{
-                                text-align: right;
-                margin-bottom: 5px;
-                font-size: 20px;
-            }
             .information{
                 min-width: 10px;
                 display: inline-block;
                 word-break:break-all;
+                margin:10px 0 0 0 ;
                 padding-top: 5px;
                 border-radius:5px;
                 border: 1px solid #fff;
@@ -207,7 +197,7 @@ $bottom-color:#f7f7f7;
             }
             .location{
                 position: absolute;
-                top: 45px;
+                top: 25px;
                 right: 0px;
                 width:0;
                 height:0;
@@ -223,5 +213,4 @@ $bottom-color:#f7f7f7;
     width: 100%;
     float: left;
 }
-</style>
 </style>

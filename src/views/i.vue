@@ -6,7 +6,7 @@
             <img src="../assets/head13.jpeg" alt="">
         </div>
         <div class="content">
-            <div class="contenttop"><b>。。。。</b></div>
+            <div class="contenttop"><b>{{nickname}}</b></div>
             <div class="contentbottom">
                 <div class="contentbottomleft">微信号：XXXXXXXXXX
                         <img src="../assets/arrow.png" alt="">
@@ -25,7 +25,8 @@
 </template>
 <script>
         import World from '@/components/World.vue'
-                import maillist1 from '@/components/maillist.vue'
+         import axios from 'axios'
+         import maillist1 from '@/components/maillist.vue'
     export default {
         name:"maillist",
         components: {
@@ -34,19 +35,38 @@
         },
         props: {
         },
+    mounted() {
+            this.user();
+},
         methods: {
+                    user(){
+                        axios({
+                            method:'post',
+                            url:'http://127.0.0.1:8084/select/user',
+                            params: {
+                                username: this.$route.query.username,
+                                password: this.$route.query.password,
+                            },
+                            responseType: "json",
+                    transformResponse:  (data) =>{
+                            this.nickname=data.object.nickname;
+                            localStorage.setItem("token",data.tips);
+                            console.log(localStorage.getItem("token"));
+                    },
+                        })
+                        },
         },
-
         data() {
             return {
+                nickname:'',
                 text:"发现",
                 aa:[
-                     {'class1':'支付','class2':true,'class3':'','img':'./img/head3.jpeg'},
-                    {'class1':'收藏','class2':false,'class3':'0','img':'./img/head3.jpeg'},
-                     {'class1':'相册','class2':false,'class3':'','img':'./img/head3.jpeg'},
-                      {'class1':'卡包','class2':false,'class3':'','img':'./img/head3.jpeg'},
-                        {'class1':'表情','class2':false,'class3':'','img':'./img/head3.jpeg'},
-                        {'class1':'设置','class2':true,'class3':'','img':'./img/head3.jpeg'},
+                     {'nickname':'支付','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
+                    {'nickname':'收藏','class2':false,'class3':'0','avatar':'./img/head3.jpeg'},
+                     {'nickname':'相册','class2':false,'class3':'','avatar':'./img/head3.jpeg'},
+                      {'nickname':'卡包','class2':false,'class3':'','avatar':'./img/head3.jpeg'},
+                        {'nickname':'表情','class2':false,'class3':'','avatar':'./img/head3.jpeg'},
+                        {'nickname':'设置','class2':true,'class3':'','avatar':'./img/head3.jpeg'},
                     ]
                 }
             },
